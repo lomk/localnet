@@ -1,0 +1,48 @@
+<h2>Rules</h2>
+<div class="row form-group mt-4">
+    <a class="btn btn-md btn-primary col-xs-2" routerLink="new" routerLinkActive="active">Add new rule</a>
+</div>
+<div class="row">
+<table class="table table">
+    <tr>
+        <th class="col-sm-1">Type</th>
+        <th class="col-sm-1">Local IP</th>
+        <th class="col-sm-1">remote IP</th>
+        <th class="col-sm-1">Queue name</th>
+        <th class="col-sm-1">Pkt Loss</th>
+        <th class="col-sm-1">Latency</th>
+        <th class="col-sm-1"></th>
+        <!--<th class="col-sm-1"></th>-->
+    </tr>
+</table>
+    <table class="table table">
+    <tr *ngFor="let queueRule of queueRules"
+        [ngClass]="{'active': selectedQueueRule == queueRule}"
+        (mouseover)="onSelect(queueRule)">
+        <td class="col-sm-1">{{queueRule.queueType.type}}</td>
+        <td class="col-sm-1">{{queueRule.localIp.net.firstOctet}}.{{queueRule.localIp.net.secondOctet}}.
+            {{queueRule.localIp.net.thirdOctet}}.{{queueRule.localIp.address}}</td>
+        <td class="col-sm-1">{{queueRule.remoteIp.address}}</td>
+        <td class="col-sm-1">{{queueRule.trafficQueue.name}}</td>
+        <td class="col-sm-1">{{queueRule.trafficQueue.pktLoss}}</td>
+        <td class="col-sm-1">{{queueRule.trafficQueue.pktLatency}}</td>
+        <td class="col-sm-1" *ngIf="selectedQueueRule == queueRule; then selectedrow else unselectedrow">
+        </td>
+        <ng-template #selectedrow>
+            <!--<td class="col-sm-1">-->
+                <!--<button class="btn btn-sm btn-primary" (click)="goToDetail()">View Details</button>-->
+            <!--</td>-->
+            <td class="col-sm-1">
+                <button class="btn btn-sm btn-danger" (click)="deleteQueueRule(queueRule); $event.stopPropagation()">Delete</button>
+            </td>
+        </ng-template>
+        <ng-template #unselectedrow>
+            <td class="col-sm-1"></td>
+            <!--<td class="col-sm-1"></td>-->
+        </ng-template>
+    </tr>
+</table>
+</div>
+<div class="row form-group mt-4">
+    <a class="btn btn-md btn-primary col-xs-2" routerLink="new" routerLinkActive="active">Add new rule</a>
+</div>

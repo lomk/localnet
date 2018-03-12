@@ -1,0 +1,35 @@
+<h2>Remote IP addresses</h2>
+<div class="row form-group mt-4">
+  <a class="btn btn-md btn-primary col-xs-2" routerLink="new" routerLinkActive="active">Add new remote IP</a>
+</div>
+<div class="row">
+  <table class="table table">
+    <tr>
+      <th class="col-sm-1">id</th>
+      <th class="col-sm-1">address</th>
+      <th class="col-sm-1"></th>
+      <!--<th class="col-sm-1"></th>-->
+    </tr>
+  </table>
+  <table class="table table">
+    <tr *ngFor="let remoteIp of remoteIps"
+        [ngClass]="{'active': selectedRemoteIp == remoteIp}"
+        (mouseover)="onSelect(remoteIp)">
+      <td class="col-sm-1">{{remoteIp.id}}</td>
+      <td class="col-sm-1">{{remoteIp.address}}</td>
+      <td *ngIf="selectedRemoteIp == remoteIp; then selectedrow else unselectedrow">
+      </td>
+      <ng-template #selectedrow>
+        <!--<td class="col-sm-1"><button class="btn btn-sm btn-primary" (click)="goToDetail()">View Details</button></td>-->
+        <td class="col-sm-1"><button class="btn btn-sm btn-danger" (click)="delete(remoteIp); $event.stopPropagation()">Delete</button></td>
+      </ng-template>
+      <ng-template #unselectedrow>
+        <td class="col-sm-1"></td>
+        <!--<td class="col-sm-1"></td>-->
+      </ng-template>
+    </tr>
+  </table>
+</div>
+<div class="row form-group mt-4">
+  <a class="btn btn-md btn-primary col-xs-2" routerLink="new" routerLinkActive="active">Add new remote IP</a>
+</div>

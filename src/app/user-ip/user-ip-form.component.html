@@ -1,0 +1,27 @@
+<form #userIpForm="ngForm" (ngSubmit)="onFormSubmit(userIpForm)">
+    <div class="form-group row">
+        <div class="col-xs-3">
+            <label>Add new local IP name: </label>
+        </div>
+        <div class="col-xs-3">
+            <select class="form-control" name="user" [(ngModel)]="user">
+                <option [ngValue]="null" disabled>Choose user</option>
+                <option *ngFor="let user of users" [ngValue]="user">
+                    {{user.username}}
+                </option>
+            </select>
+        </div>
+        <div class="col-xs-3">
+            <select class="form-control" name="localIp" [(ngModel)]="localIp">
+                <option [ngValue]="null" disabled>Choose localIp</option>
+                <option *ngFor="let localIp of localIps" [ngValue]="localIp">
+                    {{localIp.net.firstOctet}}.{{localIp.net.secondOctet}}.{{localIp.net.thirdOctet}}.{{localIp.address}}
+                </option>
+            </select>
+        </div>
+        <div class="col-xs-3">
+            <button class="btn btn-md btn-primary col-xs-8">Add</button>
+        </div>
+    </div>
+</form>
+

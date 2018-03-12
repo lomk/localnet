@@ -1,0 +1,47 @@
+
+  <div class="navbar navbar-default navbar-static-top">
+    <div class="container">
+      <div class="navbar-header">
+        <strong class="navbar-brand"><a routerLink="/admin" routerLinkActive="active">{{title}}</a></strong>
+      </div>
+      <ul class="nav navbar-nav">
+        <li>
+          <a routerLink="users" routerLinkActive="active">Users</a>
+        </li>
+        <li>
+          <a routerLink="roles" routerLinkActive="active">Roles</a>
+        </li>
+        <li>
+          <a routerLink="user-ips" routerLinkActive="active">Users IP</a>
+        </li>
+        <li>
+          <a routerLink="local-ips" routerLinkActive="active">Local IP</a>
+        </li>
+        <li>
+          <a routerLink="remote-ips" routerLinkActive="active">Remote IP</a>
+        </li>
+        <li>
+          <a routerLink="nets" routerLinkActive="active">Nets</a>
+        </li>
+        <li>
+          <a routerLink="queue-rules" routerLinkActive="active">Queue rules</a>
+        </li>
+        <li>
+          <a routerLink="queue-types" routerLinkActive="active">Queue types</a>
+        </li>
+        <li>
+          <a routerLink="traffic-queues" routerLinkActive="active">Queues</a>
+        </li>
+        <li>
+          <a routerLink="providers" routerLinkActive="active">Providers</a>
+        </li>
+        <li>
+          <a routerLink="../logout" routerLinkActive="active">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="container">
+    <router-outlet></router-outlet>
+  </div>
+

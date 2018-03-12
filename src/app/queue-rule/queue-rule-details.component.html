@@ -1,0 +1,60 @@
+<div *ngIf="queueRule">
+    <h2>Rule details!</h2>
+    <div class="well">
+        <div class="row">
+            <label class="col-sm-2 control-label">Type: </label>
+            <div class="form-inline">
+                <div class="form-group">
+                    <input class="form-control" [(ngModel)]="queueRule.queueType.type" placeholder="type" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <label class="col-sm-2 control-label">local IP: </label>
+            <div class="form-inline">
+                <div class="form-group">
+                    <input class="form-control" [(ngModel)]="queueRule.localIp.net.firstOctet"/>
+                    <input class="form-control" [(ngModel)]="queueRule.localIp.net.secondOctet"/>
+                    <input class="form-control" [(ngModel)]="queueRule.localIp.net.thirdOctet"/>
+                    <input class="form-control" [(ngModel)]="queueRule.localIp.address"/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <label class="col-sm-2 control-label">remote IP: </label>
+            <div class="form-inline">
+                <div class="form-group">
+                    <input class="form-control" [(ngModel)]="queueRule.remoteIp.address" placeholder="remote IP" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <label class="col-sm-2 control-label">queue name: </label>
+            <div class="form-inline">
+                <div class="form-group">
+                    <input class="form-control" [(ngModel)]="queueRule.trafficQueue.name" placeholder="queue name" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <label class="col-sm-2 control-label">pktloss: </label>
+            <div class="form-inline">
+                <div class="form-group">
+                    <input class="form-control" [(ngModel)]="queueRule.trafficQueue.pktLoss" placeholder="pktloss" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <label class="col-sm-2 control-label">latency: </label>
+            <div class="form-inline">
+                <div class="form-group">
+                    <input class="form-control" [(ngModel)]="queueRule.trafficQueue.pktLatency" placeholder="latency" />
+                </div>
+            </div>
+        </div>
+        <div class="row"></div>
+        <div class="form-inline">
+            <button  class="btn btn-bg btn-primary" (click)="goBack()">Back</button>
+        </div>
+    </div>
+</div>

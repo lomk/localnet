@@ -1,0 +1,44 @@
+<form #ruleForm="ngForm" (ngSubmit)="onFormSubmit(ruleForm)">
+  <div class="row form-group">
+    <!--<div class="col-xs-3">-->
+      <!--<select class="form-control" name="localIp" [(ngModel)]="localIp">-->
+        <!--<option [ngValue]="null" disabled>Choose local IP</option>-->
+        <!--<option *ngFor="let localIp of localIps" [ngValue]="localIp">-->
+          <!--{{localIp.net.firstOctet}}.{{localIp.net.secondOctet}}.{{localIp.net.thirdOctet}}.{{ localIp.address }}-->
+        <!--</option>-->
+      <!--</select>-->
+    <!--</div>-->
+    <div class="col-xs-3">
+      <label>Choose remote IP</label>
+      <select class="form-control" name="remoteIp" [(ngModel)]="remoteIp">
+        <option [ngValue]="null" disabled>Choose remote IP</option>
+        <option *ngFor="let remoteIp of remoteIps" [ngValue]="remoteIp">
+          {{ remoteIp.address }}
+        </option>
+      </select>
+    </div>
+    <div class="col-xs-3">
+      <label>Choose queue type</label>
+      <select class="form-control" name="queueType" [(ngModel)]="queueType">
+        <option [ngValue]="null" disabled>Choose queue type</option>
+        <option *ngFor="let queueType of queueTypes" [ngValue]="queueType">
+          {{ queueType.type }}
+        </option>
+      </select>
+    </div>
+    <div class="col-xs-3">
+      <label>Choose queue</label>
+      <select class="form-control" name="trafficQueue" [(ngModel)]="trafficQueue">
+        <option [ngValue]="null" disabled>Choose queue</option>
+        <option *ngFor="let trafficQueue of trafficQueues" [ngValue]="trafficQueue">
+          {{ trafficQueue.name }} {{ trafficQueue.pktLatency }} {{ trafficQueue.pktLoss }}
+        </option>
+      </select>
+    </div>
+  </div>
+  <div class="row form-group">
+    <div class="col-xs-3">
+      <button class="btn btn-primary">Submit</button>
+    </div>
+  </div>
+</form>

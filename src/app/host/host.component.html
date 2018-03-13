@@ -1,0 +1,44 @@
+<h2>Local IP addresses</h2>
+<div class="row form-group mt-4">
+    <a class="btn btn-md btn-primary col-xs-2" routerLink="new" routerLinkActive="active">Add new local IP</a>
+</div>
+<div class="row">
+<table class="table table">
+    <tr>
+        <th class="col-sm-1">id</th>
+        <th class="col-sm-1">address</th>
+        <th class="col-sm-1"></th>
+        <!--<th class="col-sm-1"></th>-->
+    </tr>
+</table>
+<table class="table table">
+    <tr *ngFor="let localIp of localIps"
+        [ngClass]="{'active': selectedLocalIp == localIp}"
+        (mouseover)="onSelect(localIp)">
+        <td class="col-sm-1">{{localIp.id}}</td>
+        <td class="col-sm-1">{{localIp.net.firstOctet}}
+            .{{localIp.net.secondOctet}}
+            .{{localIp.net.thirdOctet}}
+            .{{localIp.address}}</td>
+        <td *ngIf="selectedLocalIp == localIp; then selectedrow else unselectedrow">
+        </td>
+        <ng-template #selectedrow>
+            <!--<td class="col-sm-1">-->
+                <!--<button class="btn btn-sm btn-default"-->
+                                         <!--(click)="goToDetail()">View Details</button>-->
+            <!--</td>-->
+            <td class="col-sm-1">
+                <button class="btn btn-sm btn-danger"
+                                         (click)="delete(localIp); $event.stopPropagation()">Delete</button>
+            </td>
+        </ng-template>
+        <ng-template #unselectedrow>
+            <!--<td class="col-sm-1"></td>-->
+            <td class="col-sm-1"></td>
+        </ng-template>
+    </tr>
+</table>
+</div>
+<div class="row form-group mt-4">
+    <a class="btn btn-md btn-primary col-xs-2" routerLink="new" routerLinkActive="active">Add new local IP</a>
+</div>

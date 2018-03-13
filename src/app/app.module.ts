@@ -9,7 +9,7 @@ import {Globals }                   from './globals';
 import {LoginComponent}             from './auth/login.component';
 import {LogoutComponent}            from './auth/logout.component';
 import {AdminModule}                from './admin/admin.module';
-import {TesterModule}               from './tester/tester.module';
+// import {TesterModule}               from './tester/tester.module';
 import {AuthService}                from './auth/auth.service';
 
 @NgModule({
@@ -18,7 +18,7 @@ import {AuthService}                from './auth/auth.service';
         FormsModule,
         HttpModule,
         AdminModule,
-        TesterModule,
+        // TesterModule,
         AppRoutingModule
   ],
     declarations: [

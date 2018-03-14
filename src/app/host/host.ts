@@ -1,9 +1,9 @@
-import {Provider}   from '../provider/provider';
-import {Net}        from '../net/net';
+import {Port} from './port';
 
-export class LocalIp {
+export class Host {
     id: number;
-    address: number;
-    net: Net;
-    provider: Provider;
+    address: string;
+    macAddress: string;
+    isUp: boolean;
+    ports: Port[];
 }

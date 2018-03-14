@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Role } from './role';
 import { RoleService } from './role.service';
 import {Router} from '@angular/router';
-import {User} from "../user/user";
+import {User} from '../user/user';
 
 @Component({
     selector: 'app-roles',

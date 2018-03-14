@@ -1,29 +1,32 @@
+///<reference path="../../../node_modules/@angular/core/src/metadata/directives.d.ts"/>
 import { Component, OnInit }    from '@angular/core';
-
-import { LocalIp }              from './host';
-import { LocalIpService }       from './host.service';
+import { Host }                 from './host';
+import { HostService }          from './host.service';
 import {Router}                 from '@angular/router';
-import {User} from "../user/user";
+import {User}                   from '../user/user';
+import {HostDetailsComponent} from './host-details.component';
+
 
 @Component({
-    selector: 'app-local-ips',
-    templateUrl: './host.component.html' ,
-    // styleUrls: [`./local-ip.component.css`],
-    providers: [LocalIpService]
+  selector: 'app-hosts',
+  templateUrl: './host.component.html',
+  providers: [HostService]
 })
-export class LocalIpComponent implements OnInit {
+export class HostComponent implements OnInit {
     currentUser: User;
-    localIps: LocalIp[];
-    selectedLocalIp: LocalIp;
+    hosts: Host[];
+    selectedHost: Host;
+  activeHost: Host;
+    showDetails = false;
 
     constructor(
         private router: Router,
-        private localIpService: LocalIpService) {
+        private hostService: HostService) {
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     }
 
-    getLocalIps(): void {
-        this.localIpService.getLocalIps().subscribe(localIps => this.localIps = localIps,
+    getHosts(): void {
+        this.hostService.getHosts().subscribe(hosts => this.hosts = hosts,
             error => {
           if ( error.status === 401 ) {
             this.router.navigate(['/login']);
@@ -31,24 +34,25 @@ export class LocalIpComponent implements OnInit {
         });
     }
 
-    delete(localIp: LocalIp): void {
-        this.localIpService
-            .delete(localIp.id)
+    delete(host: Host): void {
+        this.hostService
+            .delete(host.id)
             .subscribe(() => {
-                this.localIps = this.localIps.filter(h => h !== localIp);
-                if (this.selectedLocalIp === localIp) { this.selectedLocalIp = null; }
+                this.hosts = this.hosts.filter(h => h !== host);
+                if (this.selectedHost === host) { this.selectedHost = null; }
             });
     }
 
     ngOnInit(): void {
-        this.getLocalIps();
+        this.getHosts();
     }
 
-    onSelect(localIp: LocalIp): void {
-        this.selectedLocalIp = localIp;
+    onSelect(host: Host): void {
+        this.activeHost = host;
     }
 
-    goToDetail(): void {
-        this.router.navigate(['/local-ip-details', this.selectedLocalIp.id]);
+    loadDetails(host: Host): void {
+        this.showDetails = true;
+        this.selectedHost = host;
     }
 }

@@ -1,4 +1,4 @@
-import {Provider}   from '../provider/provider';
+
 import {Role}       from '../role/role';
 
 export class User {
@@ -7,5 +7,4 @@ export class User {
     password: String;
     confirmPassword: String;
     role: Role;
-    provider: Provider;
 }

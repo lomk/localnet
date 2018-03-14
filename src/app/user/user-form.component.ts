@@ -5,15 +5,13 @@ import {User}               from './user';
 import {Component, OnInit}  from '@angular/core';
 import {Router}             from '@angular/router';
 import {NgForm}             from '@angular/forms';
-import {ProviderService}    from '../provider/provider.service';
 
 @Component({
     selector: 'local-ip-form',
     templateUrl: './user-form.component.html',
     providers: [
         UserService,
-        RoleService,
-        ProviderService]
+        RoleService]
 })
 export class UserFormComponent implements OnInit {
     user = new User();

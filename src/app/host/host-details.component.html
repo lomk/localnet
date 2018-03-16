@@ -1,1 +1,19 @@
-<p>Host details here</p>
+<div class="row" style="height:50px;">
+  <div class="col-sm-7">
+    <button type="button" class="btn">Send magic pakage</button>
+  </div>
+  <div class="col-sm-1">
+    <button type="button" class="btn" (click)="ping()">Ping</button>
+  </div>
+</div>
+<div *ngIf='pingStatus' class="row" style="height:50px;">
+  <div class="col-sm-7">
+    <td *ngIf="host.isUp == true; then hostUp else hostDown"></td>
+    <ng-template #hostUp>
+      <div class="well">Host is up now</div>
+    </ng-template>
+    <ng-template #hostDown>
+      <div class="well">Host is down now</div>
+    </ng-template>
+  </div>
+</div>

@@ -1,49 +1,30 @@
 <h2>Hosts</h2>
 <div class="row">
-<table class="table table">
-    <tr>
-        <!--<th class="col-sm-1">id</th>-->
-      <th class="col-sm-1">Status</th>
+  <table class="table">
+    <thead>
+      <tr>
+        <th class="col-sm-1">Status</th>
         <th class="col-sm-1">Hostname</th>
         <th class="col-sm-1">IP</th>
         <th class="col-sm-1">mac</th>
-    </tr>
-</table>
-  <table class="table table">
-  <tr *ngFor="let host of hosts"
-        [ngClass]="{'active': activeHost == host}"
-        (mouseover)="onSelect(host)" style="cursor: pointer;"
-       (click)="loadDetails(host)">
-      <!--<td class="col-sm-1">{{host.id}}</td>-->
-    <td *ngIf="host.isUp == true; then hostUp else hostDown"></td>
-    <td class="col-sm-1">{{host.hostname}}</td>
-      <td class="col-sm-1">{{host.ipAddress}}</td>
-      <td class="col-sm-1">{{host.macAddress}}</td>
-      <!--<td *ngIf="host.isUp == true; then hostUp else hostDown"></td>-->
-      <!--<td *ngIf="selectedHost == host; then selectedrow else unselectedrow"></td>-->
-    <div *ngIf= 'showDetails && selectedHost == host'>
-      <app-host-details></app-host-details>
-    </div>
-      <ng-template #hostUp>
-        <td class="col-sm-1">Online</td>
-      </ng-template>
-      <ng-template #hostDown>
-        <td class="col-sm-1">Offline</td>
-      </ng-template>
-        <!--<ng-template #selectedrow>-->
-            <!--&lt;!&ndash;<td class="col-sm-1">&ndash;&gt;-->
-                <!--&lt;!&ndash;<button class="btn btn-sm btn-default"&ndash;&gt;-->
-                                         <!--&lt;!&ndash;(click)="goToDetail()">View Details</button>&ndash;&gt;-->
-            <!--&lt;!&ndash;</td>&ndash;&gt;-->
-            <!--<td class="col-sm-1">-->
-                <!--<button class="btn btn-sm btn-danger"-->
-                                         <!--(click)="delete(host); $event.stopPropagation()">Delete</button>-->
-            <!--</td>-->
-        <!--</ng-template>-->
-        <!--<ng-template #unselectedrow>-->
-            <!--&lt;!&ndash;<td class="col-sm-1"></td>&ndash;&gt;-->
-            <!--<td class="col-sm-1"></td>-->
-        <!--</ng-template>-->
-    </tr>
-</table>
+      </tr>
+    </thead>
+    <tbody *ngFor="let host of hosts" [ngClass]="{'active': activeHost == host}" (mouseover)="onSelect(host)">
+      <tr  style="cursor: pointer;" (click)="loadDetails(host)">
+        <td *ngIf="host.isUp == true; then hostUp else hostDown"></td>
+        <td class="col-sm-1">{{host.hostname}}</td>
+        <td class="col-sm-1">{{host.ipAddress}}</td>
+        <td class="col-sm-1">{{host.macAddress}}</td>
+        <ng-template #hostUp>
+          <td class="col-sm-1">Online</td>
+        </ng-template>
+        <ng-template #hostDown>
+          <td class="col-sm-1">Offline</td>
+        </ng-template>
+      </tr>
+      <tr *ngIf= 'showDetails && selectedHost == host'>
+          <app-host-details [host]="activeHost"></app-host-details>
+      </tr>
+    </tbody>
+  </table>
 </div>

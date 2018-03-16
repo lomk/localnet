@@ -4,7 +4,7 @@ import { Host }                 from './host';
 import { HostService }          from './host.service';
 import {Router}                 from '@angular/router';
 import {User}                   from '../user/user';
-import {HostDetailsComponent} from './host-details.component';
+
 
 
 @Component({
@@ -16,7 +16,7 @@ export class HostComponent implements OnInit {
     currentUser: User;
     hosts: Host[];
     selectedHost: Host;
-  activeHost: Host;
+    activeHost: Host;
     showDetails = false;
 
     constructor(

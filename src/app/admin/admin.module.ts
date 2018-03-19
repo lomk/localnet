@@ -17,6 +17,7 @@ import {AdminGuard}                 from './admin-guard.service';
 import {HostComponent}              from '../host/host.component';
 import {HostService}                from '../host/host.service';
 import {HostDetailsComponent} from '../host/host-details.component';
+import { SortByPipe} from '../host/SortByPipe';
 
 
 
@@ -35,6 +36,7 @@ import {HostDetailsComponent} from '../host/host-details.component';
     RoleFormComponent,
     UserComponent,
     UserFormComponent,
+    SortByPipe
   ],
   providers: [
     Globals,

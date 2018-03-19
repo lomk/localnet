@@ -3,14 +3,14 @@
   <table class="table">
     <thead>
       <tr>
-        <th class="col-sm-1">Status</th>
-        <th class="col-sm-1">Hostname</th>
-        <th class="col-sm-1">IP</th>
-        <th class="col-sm-1">mac</th>
+        <th class="col-sm-1" style="cursor: pointer;" (click)="sort('isUp')">Status</th>
+        <th class="col-sm-1" style="cursor: pointer;" (click)="sort('hostname')">Hostname</th>
+        <th class="col-sm-1" style="cursor: pointer;" (click)="sort('ipAddress')">IP</th>
+        <th class="col-sm-1" style="cursor: pointer;" (click)="sort('macAddress')">mac</th>
       </tr>
     </thead>
-    <tbody *ngFor="let host of hosts" [ngClass]="{'active': activeHost == host}" (mouseover)="onSelect(host)">
-      <tr  style="cursor: pointer;" (click)="loadDetails(host)">
+    <tbody *ngFor="let host of hosts | orderBy: {property: column, direction: direction}" (mouseover)="onSelect(host)">
+      <tr  style="cursor: pointer;" (click)="loadDetails(host)" [ngClass]="{'active': activeHost == host}">
         <td *ngIf="host.isUp == true; then hostUp else hostDown"></td>
         <td class="col-sm-1">{{host.hostname}}</td>
         <td class="col-sm-1">{{host.ipAddress}}</td>
@@ -23,7 +23,7 @@
         </ng-template>
       </tr>
       <tr *ngIf= 'showDetails && selectedHost == host'>
-          <app-host-details [host]="activeHost"></app-host-details>
+          <app-host-details [host]="selectedHost" [hosts]="hosts"></app-host-details>
       </tr>
     </tbody>
   </table>

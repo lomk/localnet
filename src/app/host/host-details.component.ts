@@ -13,6 +13,7 @@ export class HostDetailsComponent implements OnInit {
   wakeStatus: Boolean = false;
 
   @Input() host: Host;
+  @Input() hosts: Host[];
 
   constructor(
     private router: Router,
@@ -23,7 +24,20 @@ export class HostDetailsComponent implements OnInit {
 
   ping(): Host {
     this.hostService.ping(this.host.id).subscribe(host => { this.host = host;
-    this.pingStatus = true;}, error => {
+    this.pingStatus = true;
+    const hostid: number = this.hosts.indexOf(this.host);
+    this.hosts[hostid] = host;}, error => {
+      if ( error.status === 401 ) {
+        this.router.navigate(['/login']);
+      }
+    });
+    return null;
+  }
+
+  wake(): String {
+    this.wakeStatus = false;
+    this.hostService.wake(this.host.id).subscribe(status => { if (status === 'sent') {
+      this.wakeStatus = true;}}, error => {
       if ( error.status === 401 ) {
         this.router.navigate(['/login']);
       }

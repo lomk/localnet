@@ -18,6 +18,11 @@ export class HostComponent implements OnInit {
     selectedHost: Host;
     activeHost: Host;
     showDetails = false;
+    sortname: String = 'hostname';
+
+  isDesc: Boolean = false;
+  column: String = 'hostname';
+  direction: number;
 
     constructor(
         private router: Router,
@@ -43,6 +48,12 @@ export class HostComponent implements OnInit {
             });
     }
 
+  sort(property){
+    this.isDesc = !this.isDesc; //change the direction
+    this.column = property;
+    this.direction = this.isDesc ? 1 : -1;
+  };
+
     ngOnInit(): void {
         this.getHosts();
     }
@@ -54,5 +65,6 @@ export class HostComponent implements OnInit {
     loadDetails(host: Host): void {
         this.showDetails = true;
         this.selectedHost = host;
+        // this.activeHost = host;
     }
 }

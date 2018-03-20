@@ -1,6 +1,6 @@
 <div class="row" style="height:50px; margin: auto;">
   <div class="col-sm-7" style="padding: 10px 0;">
-    <button type="button" class="btn btn-primary"(click)="wake()">Turn on</button>
+    <button type="button" class="btn btn-primary"(click)="wake()">Wake up</button>
   </div>
   <div class="col-sm-1" style="padding: 10px 0;">
     <button type="button" class="btn btn-primary" (click)="ping()">Ping</button>
@@ -8,7 +8,7 @@
 </div>
 <div *ngIf="wakeStatus== true" class="row" style="height:50px;">
   <div class="col-sm-7">
-      <div class="well">Magic pakage was sent</div>
+      <div class="well" style=" position: relative; left: 5%; top: 10%">Magic package was sent</div>
   </div>
 </div>
 <div *ngIf='pingStatus' class="row" style="height:100px; right: 50%; left: 30%;">
@@ -18,7 +18,7 @@
     <div class="well" style=" position: relative; left: 5%; top: 10%">Host is up now</div>
   </ng-template>
   <ng-template #hostDown>
-    <div class="well" >Host is down now</div>
+    <div class="well" style=" position: relative; left: 5%; top: 10%">Host is down now</div>
   </ng-template>
 
 </div>

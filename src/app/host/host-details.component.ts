@@ -23,10 +23,11 @@ export class HostDetailsComponent implements OnInit {
   ngOnInit(): void {}
 
   ping(): Host {
+    this.pingStatus = false;
     this.hostService.ping(this.host.id).subscribe(host => { this.host = host;
     this.pingStatus = true;
     const hostid: number = this.hosts.indexOf(this.host);
-    this.hosts[hostid] = host;}, error => {
+    this.hosts[hostid].isUp = host.isUp;}, error => {
       if ( error.status === 401 ) {
         this.router.navigate(['/login']);
       }

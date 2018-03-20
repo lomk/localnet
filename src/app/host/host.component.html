@@ -1,9 +1,13 @@
 <h2>Hosts</h2>
+<!--{{column}} : {{isDesc}}-->
 <div class="row">
   <table class="table">
     <thead>
       <tr>
-        <th class="col-sm-1" style="cursor: pointer;" (click)="sort('isUp')">Status</th>
+        <th class="col-sm-1" style="cursor: pointer;" (click)="sort('isUp')">
+          Status
+          <i class="fa" [ngClass]="{'fa-sort': column != 'Status', 'fa-sort-asc': (column == 'Status' && isDesc), 'fa-sort-desc': (column == 'Status' && !isDesc) }" aria-hidden="true"> </i>
+        </th>
         <th class="col-sm-1" style="cursor: pointer;" (click)="sort('hostname')">Hostname</th>
         <th class="col-sm-1" style="cursor: pointer;" (click)="sort('ipAddress')">IP</th>
         <th class="col-sm-1" style="cursor: pointer;" (click)="sort('macAddress')">mac</th>

@@ -1,5 +1,8 @@
 <h2>Hosts</h2>
 <!--{{column}} : {{isDesc}}-->
+<div class="row form-group mt-4">
+<a class="btn btn-md btn-primary col-xs-2" (click)="getHosts(); $event.stopPropagation()">Refresh</a>
+</div>
 <div class="row">
   <table class="table">
     <thead>
@@ -20,10 +23,10 @@
         <td class="col-sm-1">{{host.ipAddress}}</td>
         <td class="col-sm-1">{{host.macAddress}}</td>
         <ng-template #hostUp>
-          <td class="col-sm-1">Online</td>
+          <td class="col-sm-1" style="color:darkgreen;">Online</td>
         </ng-template>
         <ng-template #hostDown>
-          <td class="col-sm-1">Offline</td>
+          <td class="col-sm-1" style="color:red;">Offline</td>
         </ng-template>
       </tr>
       <tr *ngIf= 'showDetails && selectedHost == host'>
@@ -31,4 +34,7 @@
       </tr>
     </tbody>
   </table>
+</div>
+<div class="row form-group mt-4">
+  <a class="btn btn-md btn-primary col-xs-2" (click)="getHosts(); $event.stopPropagation()">Refresh</a>
 </div>

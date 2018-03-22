@@ -10,6 +10,8 @@ import {LoginComponent}             from './auth/login.component';
 import {LogoutComponent}            from './auth/logout.component';
 import {AuthService}                from './auth/auth.service';
 import {AdminModule}                from './admin/admin.module';
+import {NgProgressModule} from 'ngx-progressbar';
+
 
 @NgModule({
     imports: [
@@ -17,7 +19,8 @@ import {AdminModule}                from './admin/admin.module';
         FormsModule,
         HttpModule,
         AdminModule,
-        AppRoutingModule
+        AppRoutingModule,
+        NgProgressModule
   ],
     declarations: [
         AppComponent,

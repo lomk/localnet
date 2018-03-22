@@ -2,7 +2,7 @@ import {Port} from './port';
 
 export class Host {
     id: number;
-    address: string;
+    ipAddress: string;
     macAddress: string;
     isUp: boolean;
     ports: Port[];

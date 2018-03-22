@@ -2,6 +2,7 @@ import {Component, Input, OnChanges, OnInit, SimpleChange, SimpleChanges} from '
 import {HostService} from './host.service';
 import {Host} from './host';
 import {Router} from '@angular/router';
+import {NgProgress} from 'ngx-progressbar';
 
 @Component({
   selector: 'app-host-details',
@@ -17,30 +18,41 @@ export class HostDetailsComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private hostService: HostService
+    private hostService: HostService,
+    private ngProgress: NgProgress
   ){}
 
   ngOnInit(): void {}
 
   ping(): Host {
+    this.ngProgress.start();
     this.pingStatus = false;
     this.hostService.ping(this.host.id).subscribe(host => { this.host = host;
     this.pingStatus = true;
-    const hostid: number = this.hosts.indexOf(this.host);
-    this.hosts[hostid].isUp = host.isUp;}, error => {
+    // const hostid: number = this.hosts.indexOf(this.host);
+    // this.hosts[hostid].isUp = host.isUp;
+    this.ngProgress.done();
+      }, error => {
       if ( error.status === 401 ) {
         this.router.navigate(['/login']);
-      }
+      };
     });
-    return null;
+    // this.ngProgress.done();
+    return this.host;
   }
 
   wake(): String {
+    this.ngProgress.start();
     this.wakeStatus = false;
     this.hostService.wake(this.host.id).subscribe(status => { if (status === 'sent') {
-      this.wakeStatus = true;}}, error => {
+      this.wakeStatus = true;
+      this.ngProgress.done();
+    }}, error => {
       if ( error.status === 401 ) {
         this.router.navigate(['/login']);
+      }
+      if ( error.status === 404 ) {
+        this.ngProgress.done();
       }
     });
     return null;

@@ -18,7 +18,8 @@ export class HostComponent implements OnInit {
     selectedHost: Host;
     activeHost: Host;
     showDetails = false;
-    sortname: String = 'hostname';
+    // sortname: String = 'hostname';
+    // interval: any;
 
   isDesc: Boolean = false;
   column: String = 'hostname';
@@ -39,6 +40,23 @@ export class HostComponent implements OnInit {
         });
     }
 
+    // refreshHosts(): void {
+    //   this.hostService.getHosts().subscribe(hosts => {
+    //     for (const host of hosts) {
+    //     const hostid: number = hosts.indexOf(host);
+    //         if (!this.hosts[hosts.indexOf(host)].isUp === host.isUp){
+    //           this.hosts[hosts.indexOf(host)].isUp = host.isUp;
+    //           console.log(host.ipAddress);
+    //           console.log(host.isUp);
+    //
+    //         }
+    //       }
+    //     },
+    //     error => {
+    //       if ( error.status === 401 ) {}
+    //     });
+    // }
+
     delete(host: Host): void {
         this.hostService
             .delete(host.id)
@@ -49,13 +67,14 @@ export class HostComponent implements OnInit {
     }
 
   sort(property){
-    this.isDesc = !this.isDesc; //change the direction
+    this.isDesc = !this.isDesc;
     this.column = property;
     this.direction = this.isDesc ? 1 : -1;
-  };
+  }
 
     ngOnInit(): void {
         this.getHosts();
+        // this.interval = setInterval(() => {this.refreshHosts();}, 5000);
     }
 
     onSelect(host: Host): void {

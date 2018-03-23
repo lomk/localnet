@@ -1,3 +1,4 @@
+<!--<ng-progress></ng-progress>-->
 <h2>Hosts</h2>
 <!--{{column}} : {{isDesc}}-->
 <div class="row form-group mt-4">
@@ -14,6 +15,7 @@
         <th class="col-sm-1" style="cursor: pointer;" (click)="sort('hostname')">Hostname</th>
         <th class="col-sm-1" style="cursor: pointer;" (click)="sort('ipAddress')">IP</th>
         <th class="col-sm-1" style="cursor: pointer;" (click)="sort('macAddress')">mac</th>
+        <th class="col-sm-1" style="cursor: pointer;" (click)="sort('macAddress')">Last online time</th>
       </tr>
     </thead>
     <tbody *ngFor="let host of hosts | orderBy: {property: column, direction: direction}" (mouseover)="onSelect(host)">
@@ -22,6 +24,7 @@
         <td class="col-sm-1">{{host.hostname}}</td>
         <td class="col-sm-1">{{host.ipAddress}}</td>
         <td class="col-sm-1">{{host.macAddress}}</td>
+        <td class="col-sm-1">{{host.scanTime | date:'dd-MM-yyyy HH:mm:ss'}}</td>
         <ng-template #hostUp>
           <td class="col-sm-1" style="color:darkgreen;">Online</td>
         </ng-template>

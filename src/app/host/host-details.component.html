@@ -1,10 +1,13 @@
 <div class="row" style="height:50px; margin: auto;">
-  <ng-progress></ng-progress>
+  <!--<ng-progress></ng-progress>-->
   <div class="col-sm-7" style="padding: 10px 0;">
     <button type="button" class="btn btn-primary"(click)="wake()">Wake up</button>
   </div>
   <div class="col-sm-1" style="padding: 10px 0;">
     <button type="button" class="btn btn-primary" (click)="ping()">Ping</button>
+  </div>
+  <div class="col-sm-1" style="padding: 10px 0;">
+    <button class="btn btn-sm btn-danger" (click)="delete(host); $event.stopPropagation()">Delete</button>
   </div>
 </div>
 <div *ngIf="wakeStatus== true" class="row" style="height:50px;">

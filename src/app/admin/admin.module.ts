@@ -19,6 +19,8 @@ import {HostService}                from '../host/host.service';
 import {HostDetailsComponent} from '../host/host-details.component';
 import { SortByPipe} from '../host/SortByPipe';
 import {NgProgressModule} from 'ngx-progressbar';
+import {PlaceComponent} from '../place/place.component';
+import {PlaceFormComponent} from '../place/place-form.component';
 
 
 
@@ -34,6 +36,8 @@ import {NgProgressModule} from 'ngx-progressbar';
     AdminComponent,
     HostComponent,
     HostDetailsComponent,
+    PlaceComponent,
+    PlaceFormComponent,
     RoleComponent,
     RoleFormComponent,
     UserComponent,

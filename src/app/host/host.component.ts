@@ -4,6 +4,8 @@ import { Host }                 from './host';
 import { HostService }          from './host.service';
 import {Router}                 from '@angular/router';
 import {User}                   from '../user/user';
+import { DatePipe } from '@angular/common';
+import {NgProgress} from 'ngx-progressbar';
 
 
 
@@ -27,13 +29,17 @@ export class HostComponent implements OnInit {
 
     constructor(
         private router: Router,
-        private hostService: HostService) {
+        private hostService: HostService,
+        private ngProgress: NgProgress) {
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     }
 
     getHosts(): void {
-        this.hostService.getHosts().subscribe(hosts => this.hosts = hosts,
-            error => {
+        this.ngProgress.start();
+        this.hostService.getHosts().subscribe(hosts => {this.hosts = hosts;
+            this.ngProgress.done();
+            },
+            error => {this.ngProgress.done();
           if ( error.status === 401 ) {
             this.router.navigate(['/login']);
           }

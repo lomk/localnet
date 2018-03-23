@@ -1,8 +1,9 @@
-import {Component, Input, OnChanges, OnInit, SimpleChange, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange, SimpleChanges} from '@angular/core';
 import {HostService} from './host.service';
 import {Host} from './host';
 import {Router} from '@angular/router';
 import {NgProgress} from 'ngx-progressbar';
+import {Host} from '../host/host';
 
 @Component({
   selector: 'app-host-details',
@@ -15,6 +16,8 @@ export class HostDetailsComponent implements OnInit {
 
   @Input() host: Host;
   @Input() hosts: Host[];
+  @Output() deleteEvent = new EventEmitter<Host>();
+  @Output() updateEvent = new EventEmitter<Host>();
 
   constructor(
     private router: Router,
@@ -24,6 +27,8 @@ export class HostDetailsComponent implements OnInit {
 
   ngOnInit(): void {}
 
+
+
   ping(): Host {
     this.ngProgress.start();
     this.pingStatus = false;
@@ -32,7 +37,7 @@ export class HostDetailsComponent implements OnInit {
     // const hostid: number = this.hosts.indexOf(this.host);
     // this.hosts[hostid].isUp = host.isUp;
     this.ngProgress.done();
-      }, error => {
+      }, error => {this.ngProgress.done();
       if ( error.status === 401 ) {
         this.router.navigate(['/login']);
       };

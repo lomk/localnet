@@ -17,6 +17,7 @@ const adminRoutes: Routes = [
     path: 'admin', component: AdminComponent,
     canActivate: [AdminGuard],
     children: [
+      { path: '',                    component: HostComponent},
       { path: 'hosts',                    component: HostComponent},
       { path: 'roles',                    component: RoleComponent},
       { path: 'roles/new',                component: RoleFormComponent},

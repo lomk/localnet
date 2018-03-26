@@ -1,43 +1,69 @@
 <!--<ng-progress></ng-progress>-->
 <h2>Hosts</h2>
 <!--{{column}} : {{isDesc}}-->
-<div class="row form-group mt-4">
+<div class="row" style="position: relative; top: 50px;">
 <a class="btn btn-md btn-primary col-xs-2" (click)="getHosts(); $event.stopPropagation()">Refresh</a>
 </div>
-<div class="row">
-  <table class="table">
-    <thead>
-      <tr>
-        <th class="col-sm-1" style="cursor: pointer;" (click)="sort('isUp')">
-          Status
-          <i class="fa" [ngClass]="{'fa-sort': column != 'Status', 'fa-sort-asc': (column == 'Status' && isDesc), 'fa-sort-desc': (column == 'Status' && !isDesc) }" aria-hidden="true"> </i>
-        </th>
-        <th class="col-sm-1" style="cursor: pointer;" (click)="sort('hostname')">Hostname</th>
-        <th class="col-sm-1" style="cursor: pointer;" (click)="sort('ipAddress')">IP</th>
-        <th class="col-sm-1" style="cursor: pointer;" (click)="sort('macAddress')">mac</th>
-        <th class="col-sm-1" style="cursor: pointer;" (click)="sort('macAddress')">Last online time</th>
-      </tr>
-    </thead>
-    <tbody *ngFor="let host of hosts | orderBy: {property: column, direction: direction}" (mouseover)="onSelect(host)">
-      <tr  style="cursor: pointer;" (click)="loadDetails(host)" [ngClass]="{'active': activeHost == host}">
-        <td *ngIf="host.isUp == true; then hostUp else hostDown"></td>
-        <td class="col-sm-1">{{host.hostname}}</td>
-        <td class="col-sm-1">{{host.ipAddress}}</td>
-        <td class="col-sm-1">{{host.macAddress}}</td>
-        <td class="col-sm-1">{{host.scanTime | date:'dd-MM-yyyy HH:mm:ss'}}</td>
-        <ng-template #hostUp>
-          <td class="col-sm-1" style="color:darkgreen;">Online</td>
-        </ng-template>
-        <ng-template #hostDown>
-          <td class="col-sm-1" style="color:red;">Offline</td>
-        </ng-template>
-      </tr>
-      <tr *ngIf= 'showDetails && selectedHost == host'>
-          <app-host-details [host]="selectedHost" [hosts]="hosts"></app-host-details>
-      </tr>
-    </tbody>
-  </table>
+<div class="row" style="position: relative; top: 100px; font-weight: bold; font-size: 14px;">
+  <div class="col-sm-2" style="cursor: pointer;" (click)="sort('isUp')">Status</div>
+  <div class="col-sm-3" style="cursor: pointer;" (click)="sort('hostname')">Hostname</div>
+  <div class="col-sm-3" style="cursor: pointer;" (click)="sort('ipAddress')">IP</div>
+  <div class="col-sm-2" style="cursor: pointer;" (click)="sort('macAddress')">mac</div>
+  <div class="col-sm-2" style="cursor: pointer;" (click)="sort('macAddress')">Last online time</div>
 </div>
+<div class="row" *ngFor="let host of hosts | orderBy: {property: column, direction: direction}"
+     style="position:relative;top: 120px; border-top: 1px solid; border-color: #e7e7e7">
+  <!--<div style="cursor: pointer;" (click)="loadDetails(host)" [ngClass]="{'active': activeHost == host}">-->
+    <!--<div *ngIf="host.isUp == true; then hostUp else hostDown"></div>-->
+    <!--<div class="col-sm-3">{{host.hostname}}</div>-->
+    <!--<div class="col-sm-3">{{host.ipAddress}}</div>-->
+    <!--<div class="col-sm-2">{{host.macAddress}}</div>-->
+    <!--<div class="col-sm-2">{{host.scanTime | date:'dd-MM-yyyy HH:mm:ss'}}</div>-->
+  <!--</div>-->
+  <!--<ng-template #hostUp>-->
+    <!--<p class="col-sm-2" style="color:darkgreen;">Online</p>-->
+  <!--</ng-template>-->
+  <!--<ng-template #hostDown>-->
+    <!--<p class="col-sm-2" style="color:red;">Offline</p>-->
+  <!--</ng-template>-->
+  <!--<div *ngIf= 'showDetails && selectedHost == host'>-->
+    <app-host-details [host]="host" (deleteEvent)="delete(host)"(editEvent)="edit(showForm)"></app-host-details>
+  <!--</div>-->
+</div>
+<!--<div class="row">-->
+  <!--<table class="table">-->
+    <!--<thead>-->
+      <!--<tr>-->
+        <!--<th class="col-sm-1" style="cursor: pointer;" (click)="sort('isUp')">-->
+          <!--Status-->
+          <!--&lt;!&ndash;<i class="fa" [ngClass]="{'fa-sort': column != 'Status', 'fa-sort-asc': (column == 'Status' && isDesc), 'fa-sort-desc': (column == 'Status' && !isDesc) }" aria-hidden="true"> </i>&ndash;&gt;-->
+        <!--</th>-->
+        <!--<th class="col-sm-1" style="cursor: pointer;" (click)="sort('hostname')">Hostname</th>-->
+        <!--<th class="col-sm-1" style="cursor: pointer;" (click)="sort('ipAddress')">IP</th>-->
+        <!--<th class="col-sm-1" style="cursor: pointer;" (click)="sort('macAddress')">mac</th>-->
+        <!--<th class="col-sm-1" style="cursor: pointer;" (click)="sort('macAddress')">Last online time</th>-->
+      <!--</tr>-->
+    <!--</thead>-->
+    <!--<tbody *ngFor="let host of hosts | orderBy: {property: column, direction: direction}" (mouseover)="onSelect(host)">-->
+      <!--<tr  style="cursor: pointer;" (click)="loadDetails(host)" [ngClass]="{'active': activeHost == host}">-->
+        <!--<td *ngIf="host.isUp == true; then hostUp else hostDown"></td>-->
+        <!--<td class="col-sm-1">{{host.hostname}}</td>-->
+        <!--<td class="col-sm-1">{{host.ipAddress}}</td>-->
+        <!--<td class="col-sm-1">{{host.macAddress}}</td>-->
+        <!--<td class="col-sm-1">{{host.scanTime | date:'dd-MM-yyyy HH:mm:ss'}}</td>-->
+        <!--<ng-template #hostUp>-->
+          <!--<td class="col-sm-1" style="color:darkgreen;">Online</td>-->
+        <!--</ng-template>-->
+        <!--<ng-template #hostDown>-->
+          <!--<td class="col-sm-1" style="color:red;">Offline</td>-->
+        <!--</ng-template>-->
+      <!--</tr>-->
+      <!--<tr *ngIf= 'showDetails && selectedHost == host'>-->
+          <!--<app-host-details [host]="selectedHost" (deleteEvent)="delete(host)"(editEvent)="edit(showForm)"></app-host-details>-->
+      <!--</tr>-->
+    <!--</tbody>-->
+  <!--</table>-->
+<!--</div>-->
 <div class="row form-group mt-4">
   <a class="btn btn-md btn-primary col-xs-2" (click)="getHosts(); $event.stopPropagation()">Refresh</a>
 </div>

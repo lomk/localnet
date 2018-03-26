@@ -20,6 +20,7 @@ export class HostComponent implements OnInit {
     selectedHost: Host;
     activeHost: Host;
     showDetails = false;
+    showForm = false;
     // sortname: String = 'hostname';
     // interval: any;
 
@@ -91,5 +92,9 @@ export class HostComponent implements OnInit {
         this.showDetails = true;
         this.selectedHost = host;
         // this.activeHost = host;
+    }
+
+    edit(showForm: boolean): void {
+      this.showForm = showForm;
     }
 }

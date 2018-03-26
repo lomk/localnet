@@ -3,7 +3,7 @@ import {PlaceService}            from './place.service';
 import {Place}                   from './place';
 import {Router}                 from '@angular/router';
 import {NgForm}                 from '@angular/forms';
-import {User}                   from '../user/user';
+
 
 @Component({
     selector: 'app-place-form',
@@ -13,11 +13,11 @@ import {User}                   from '../user/user';
 export class PlaceFormComponent implements OnInit {
     place = new Place();
     error: String;
-  currentUser: User;
+  currentPlace: Place;
 
     constructor(private router: Router,
                 private placeService: PlaceService) {
-      this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+      this.currentPlace = JSON.parse(localStorage.getItem('currentPlace'));
     }
 
     ngOnInit(): void {
@@ -33,7 +33,7 @@ export class PlaceFormComponent implements OnInit {
         this.placeService.create(newPlace)
             .subscribe(place => {
               this.place = place;
-              this.router.navigate([this.currentUser.place.name.toLowerCase() + '/places'])
+              this.router.navigate([this.currentPlace.name.toLowerCase() + '/places'])
                 .catch(error =>  console.error('asdasdasdasdasd'));
             });
     }

@@ -9,6 +9,8 @@ import {UserComponent}                from '../user/user.component';
 import {UserFormComponent}            from '../user/user-form.component';
 import {AdminGuard}                   from './admin-guard.service';
 import {HostComponent} from '../host/host.component';
+import {PlaceComponent} from '../place/place.component';
+import {PlaceFormComponent} from '../place/place-form.component';
 
 
 
@@ -22,7 +24,9 @@ const adminRoutes: Routes = [
       { path: 'roles',                    component: RoleComponent},
       { path: 'roles/new',                component: RoleFormComponent},
       { path: 'users',                    component: UserComponent},
-      { path: 'users/new',                component: UserFormComponent}
+      { path: 'users/new',                component: UserFormComponent},
+      { path: 'places',                    component: PlaceComponent},
+      { path: 'places/new',                component: PlaceFormComponent}
       ]}
 ];
 

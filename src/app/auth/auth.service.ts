@@ -56,7 +56,7 @@ export class AuthService {
       .map(response => {
         // console.log('44444444444444444');
         if (response.status === 200) {
-          console.log(response.json());
+          // console.log(response.json());
           if ( response.json().role.name === 'ADMIN' ) {
             // console.log('TRUE')
             result = true;
@@ -92,7 +92,8 @@ export class AuthService {
 
     return this.http
       .get(this.logoutUrl,  options)
-      .map(response => { console.log(response.toString());
+      .map(response => {
+        // console.log(response.toString());
       })
       .catch(this.handleError);
   }

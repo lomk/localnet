@@ -2,18 +2,18 @@ import {Component, OnInit}      from '@angular/core';
 import {RoleService}            from './role.service';
 import {Role}                   from './role';
 import {Router}                 from '@angular/router';
-import {NgForm}                 from '@angular/forms';
-import {User} from "../user/user";
+import {NgForm} from '@angular/forms';
+import {User} from '../user/user';
 
 @Component({
-    selector: 'role-form',
+    selector: 'app-role-form',
     templateUrl: './role-form.component.html',
     providers: [ RoleService]
 })
 export class RoleFormComponent implements OnInit {
     role = new Role();
     error: String;
-  currentUser: User;
+    currentUser: User;
 
     constructor(private router: Router,
                 private roleService: RoleService) {

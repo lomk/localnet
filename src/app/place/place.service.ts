@@ -47,6 +47,8 @@ export class PlaceService {
         // .catch(response => Observable.throw(response.json()));
     }
 
+
+
     search(term: string): Observable<Place[]> {
       const options = new RequestOptions();
       options.withCredentials = true;

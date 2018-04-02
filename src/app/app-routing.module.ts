@@ -10,7 +10,7 @@ import {AdminRoutingModule}         from './admin/admin-routing.module';
 import {AuthService}                from './auth/auth.service';
 
 const routes: Routes = [
-    { path: '',                         redirectTo: '/login', pathMatch: 'full' },
+    { path: '',                         redirectTo: '/admin', pathMatch: 'full' },
     { path: 'login',                    component: LoginComponent},
     { path: 'logout',                   component: LogoutComponent},
     { path: 'admin',                    component: AdminComponent}
@@ -18,7 +18,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    imports: [ RouterModule.forRoot(routes), AdminRoutingModule ],
+    imports: [ RouterModule.forRoot(routes ,{useHash: true}), AdminRoutingModule ],
     exports: [ RouterModule ], providers : [
   AuthService
 ]

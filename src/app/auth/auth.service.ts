@@ -16,6 +16,7 @@ export class AuthService {
   private logoutUrl = this.globals.API_URL + '/logout';
   private headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});
 
+
   constructor(private http: Http, private globals: Globals) {
   }
 
@@ -54,17 +55,13 @@ export class AuthService {
     options.headers = this.headers;
     this.http.get(this.currentUserUrl, options)
       .map(response => {
-        // console.log('44444444444444444');
         if (response.status === 200) {
-          // console.log(response.json());
           if ( response.json().role.name === 'ADMIN' ) {
-            // console.log('TRUE')
             result = true;
             return true;
           }
         }
       }).catch(this.handleError);
-    // console.log('111111TRUE')
     return result;
   }
 
@@ -81,8 +78,7 @@ export class AuthService {
       .post(this.loginUrl, body.toString(), options)
       .map(response => {
         return response.json() as User;
-      })
-      .catch(this.handleError);
+      }).catch(err => {return Observable.throw(new Error(err.json().error || 'Internal Server error'));});
   }
 
   logout(): Observable<void> {
@@ -99,7 +95,6 @@ export class AuthService {
   }
 
   public handleError = (error: Response) => {
-    // console.log('erooro2')
     return Observable.throw(error.status);
   }
 }

@@ -2,7 +2,6 @@ import { NgModule }                 from '@angular/core';
 import { BrowserModule }            from '@angular/platform-browser';
 import { FormsModule }              from '@angular/forms';
 import {HttpModule}                 from '@angular/http';
-
 import {AppRoutingModule}           from '../app-routing.module';
 import {Globals }                   from '../globals';
 import {RoleComponent}              from '../role/role.component';
@@ -16,12 +15,13 @@ import {AdminComponent}             from './admin.component';
 import {AdminGuard}                 from './admin-guard.service';
 import {HostComponent}              from '../host/host.component';
 import {HostService}                from '../host/host.service';
-import {HostDetailsComponent} from '../host/host-details.component';
-import { SortByPipe} from '../host/SortByPipe';
-import {NgProgressModule} from 'ngx-progressbar';
-import {PlaceComponent} from '../place/place.component';
-import {PlaceFormComponent} from '../place/place-form.component';
-import {HostFormComponent} from '../host/host-form.component';
+import {HostDetailsComponent}       from '../host/host-details.component';
+import {SortByPipe}                 from '../host/SortByPipe';
+import {NgProgressModule}           from 'ngx-progressbar';
+import {PlaceComponent}             from '../place/place.component';
+import {PlaceFormComponent}         from '../place/place-form.component';
+import {HostFormComponent}          from '../host/host-form.component';
+import {HostPipe} from '../host/host-pipe';
 
 
 
@@ -30,6 +30,7 @@ import {HostFormComponent} from '../host/host-form.component';
     BrowserModule,
     FormsModule,
     HttpModule,
+    FormsModule,
     AppRoutingModule,
     NgProgressModule
   ],
@@ -44,7 +45,8 @@ import {HostFormComponent} from '../host/host-form.component';
     RoleFormComponent,
     UserComponent,
     UserFormComponent,
-    SortByPipe
+    SortByPipe,
+    HostPipe
   ],
   providers: [
     Globals,

@@ -3,14 +3,17 @@ import { Host }      from './host';
 import {Http, RequestOptions, Response} from '@angular/http';
 import {APP_ID, Injectable} from '@angular/core';
 import {Headers}        from '@angular/http';
-import {Observable}     from 'rxjs/Observable';
+import {Observable} from 'rxjs/Rx';
 import {Globals}        from '../globals';
+import {Place} from '../place/place';
 
 @Injectable()
 export class HostService {
     private hostAllUrl =  this.globals.API_URL + '/api/admin/host/all';
     private hostUrl = this.globals.API_URL + '/api/admin/host';
     private hostAddUrl = this.globals.API_URL + '/api/admin/host/add';
+    private hostUpdUrl = this.globals.API_URL + '/api/admin/host/update';
+    private hostDelUrl = this.globals.API_URL + '/api/admin/host/delete';
     private hostSearchUrl = this.globals.API_URL + '/api/admin/host/search';
     private hostPingUrl = this.globals.API_URL + '/api/admin/scan/ping';
     private hostWakeUrl = this.globals.API_URL + '/api/admin/scan/wake';
@@ -41,6 +44,19 @@ export class HostService {
             .catch(this.handleError);
     }
 
+  subscribeHost(id: number): Observable<Host> {
+    const options = new RequestOptions();
+    options.withCredentials = true;
+    options.headers = this.headers;
+    const url = `${this.hostUrl}/${id}`;
+    return Observable.interval(20000)
+      .flatMap(() => this.http.get(url, options)
+      .map(response => response.json() as Host)
+      .catch(this.handleError));
+    }
+
+
+
     create(host: Host): Observable<any> {
       const options = new RequestOptions();
       options.withCredentials = true;
@@ -50,6 +66,18 @@ export class HostService {
             .map(response => response.json() as Host)
             .catch(this.handleError);
     }
+
+  update(host: Host): Observable<any> {
+    const options = new RequestOptions();
+    options.withCredentials = true;
+    options.headers = this.headers;
+    const place: Place = host.place;
+    console.log(JSON.stringify(host));
+    return this.http
+      .post(this.hostUpdUrl + '/' + host.id, JSON.stringify(host), options)
+      .map(response => response.json() as Host)
+      .catch(this.handleError);
+  }
 
     search(term: string): Observable<Host[]> {
       const options = new RequestOptions();
@@ -66,7 +94,7 @@ export class HostService {
       const options = new RequestOptions();
       options.withCredentials = true;
       options.headers = this.headers;
-        const url = `${this.hostUrl}/${id}`;
+        const url = `${this.hostDelUrl}/${id}`;
         return this.http.delete(url, options)
             .map(() => null)
             .catch(this.handleError);

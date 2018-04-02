@@ -23,4 +23,9 @@
     </div>
   </div>
 </form>
+  <div class="row"*ngIf="error != null">
+    <div class="alert alert-danger">
+    <p>{{error}}</p>
+    </div>
+  </div>
 </div>

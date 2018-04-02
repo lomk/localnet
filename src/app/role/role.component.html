@@ -1,15 +1,10 @@
 <h2>Roles</h2>
-<!--<div class="row form-group mt-4">-->
-    <!--<a type="button" class="btn btn-md btn-light col-xs-2" routerLink="new"-->
-       <!--routerLinkActive="active">Add new role</a>-->
-<!--</div>-->
 <div class="row">
 <table class="table table">
     <tr>
         <th class="col-sm-1">id</th>
         <th class="col-sm-1">name</th>
         <th class="col-sm-1"></th>
-        <!--<th class="col-sm-1"></th>-->
     </tr>
 </table>
 <table class="table table">
@@ -21,14 +16,11 @@
         <td *ngIf="selectedRole == role; then selectedrow else unselectedrow">
         </td>
         <ng-template #selectedrow>
-            <!--<td class="col-sm-1"><button class="btn btn-sm btn-primary"-->
-                                         <!--(click)="goToDetail()">View Details</button></td>-->
             <td class="col-sm-1"><button class="btn btn-sm btn-danger"
                                          (click)="delete(role); $event.stopPropagation()">Delete</button></td>
         </ng-template>
         <ng-template #unselectedrow>
             <td class="col-sm-1"></td>
-            <!--<td class="col-sm-1"></td>-->
         </ng-template>
     </tr>
 </table>

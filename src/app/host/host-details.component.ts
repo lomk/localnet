@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChange, SimpleChanges} from '@angular/core';
 import {HostService} from './host.service';
 import {Host} from './host';
 import {Router} from '@angular/router';
@@ -8,10 +8,9 @@ import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-host-details',
-  templateUrl: './host-details.component.html',
-  // providers: [HostService]
+  templateUrl: './host-details.component.html'
 })
-export class HostDetailsComponent implements OnInit {
+export class HostDetailsComponent implements OnInit, OnDestroy {
   pingStatus: Boolean = false;
   wakeStatus: Boolean = false;
   isActive: Boolean = false;
@@ -22,7 +21,7 @@ export class HostDetailsComponent implements OnInit {
   @Input() host: Host;
   @Input() hosts: Host[];
   @Output() deleteEvent = new EventEmitter<Host>();
-  @Output() editEvent = new EventEmitter<boolean>();
+  @Output() updateEvent = new EventEmitter<Host>();
 
   constructor(
     private router: Router,
@@ -30,15 +29,25 @@ export class HostDetailsComponent implements OnInit {
     private ngProgress: NgProgress
   ){}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.refreshHost();
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
 
 
   delete(){
     this.deleteEvent.emit(this.host);
   }
 
+  update(){
+    this.updateEvent.emit(this.host);
+  }
+
   edit(){
-    this.editEvent.emit(true);
+    this.router.navigate(['/admin/hosts/edit/' + this.host.id ]);
   }
 
   select(){
@@ -64,9 +73,8 @@ export class HostDetailsComponent implements OnInit {
     this.pingStatus = false;
     this.hostService.ping(this.host.id).subscribe(host => { this.host = host;
     this.pingStatus = true;
-    // const hostid: number = this.hosts.indexOf(this.host);
-    // this.hosts[hostid].isUp = host.isUp;
-    this.ngProgress.done();
+    this.update();
+      this.ngProgress.done();
       }, error => {this.ngProgress.done();
       if ( error.status === 401 ) {
         this.router.navigate(['/login']);
@@ -78,7 +86,7 @@ export class HostDetailsComponent implements OnInit {
     });
   }
 
-  wake(): String {
+  wake(): void {
     this.ngProgress.start();
     this.wakeStatus = false;
     this.hostService.wake(this.host.id).subscribe(status => { if (status === 'sent') {
@@ -92,6 +100,35 @@ export class HostDetailsComponent implements OnInit {
         this.ngProgress.done();
       }
     });
-    return null;
+    this.timer = Observable.timer(10000);
+    this.subscription = this.timer.subscribe(() => {
+      this.wakeStatus = false;
+    });
+  }
+
+  getHost(id: number): void {
+    this.ngProgress.start();
+    this.hostService.getHost(id).subscribe(host => {this.host = host;
+        this.ngProgress.done();
+        this.update();
+      },
+      error => {this.ngProgress.done();
+        if ( error.status === 401 ) {
+          this.router.navigate(['/login']);
+        }
+      });
+  }
+
+  refreshHost(): void {
+    // this.ngProgress.start();
+    this.subscription = this.hostService.subscribeHost(this.host.id).subscribe(host => {this.host = host;
+        this.ngProgress.done();
+        this.update();
+      },
+      error => {
+        if ( error.status === 401 ) {
+          console.log(error.toString());
+        }
+      });
   }
 }

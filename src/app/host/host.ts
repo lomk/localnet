@@ -8,6 +8,8 @@ export class Host {
     macAddress: string;
     isUp: boolean;
     scanTime: String;
+    customName: string;
+    os: string;
     place: Place;
     ports: Port[];
 }

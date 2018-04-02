@@ -41,6 +41,7 @@ export class UserService {
       const options = new RequestOptions();
       options.withCredentials = true;
       options.headers = this.headers;
+      console.log(JSON.stringify(user));
         return this.http
             .post(this.userAddUrl, JSON.stringify(user), options)
             .map(response => response.json() as User)

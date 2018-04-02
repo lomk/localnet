@@ -1,32 +1,31 @@
-///<reference path="../../../node_modules/@angular/core/src/metadata/directives.d.ts"/>
-import { Component, OnInit }    from '@angular/core';
-import { Host }                 from './host';
-import { HostService }          from './host.service';
-import {Router}                 from '@angular/router';
-import {User}                   from '../user/user';
-import { DatePipe } from '@angular/common';
-import {NgProgress} from 'ngx-progressbar';
+
+import {Component, OnDestroy, OnInit}   from '@angular/core';
+import { Host }                         from './host';
+import { HostService }                  from './host.service';
+import {Router}                         from '@angular/router';
+import {User}                           from '../user/user';
+import {NgProgress}                     from 'ngx-progressbar';
+import {SimpleTimer}                    from 'ng2-simple-timer';
+import {Subscription}                   from 'rxjs/Subscription';
+
+
 
 
 
 @Component({
   selector: 'app-hosts',
   templateUrl: './host.component.html',
-  providers: [HostService]
+  providers: [HostService, SimpleTimer]
 })
-export class HostComponent implements OnInit {
+export class HostComponent implements OnInit, OnDestroy {
     currentUser: User;
     hosts: Host[];
     selectedHost: Host;
-    activeHost: Host;
-    showDetails = false;
-    showForm = false;
-    // sortname: String = 'hostname';
-    // interval: any;
+    isDesc: Boolean = false;
+    column: String = 'hostname';
+    direction: number;
+    private subscription: Subscription;
 
-  isDesc: Boolean = false;
-  column: String = 'hostname';
-  direction: number;
 
     constructor(
         private router: Router,
@@ -37,8 +36,9 @@ export class HostComponent implements OnInit {
 
     getHosts(): void {
         this.ngProgress.start();
-        this.hostService.getHosts().subscribe(hosts => {this.hosts = hosts;
-            this.ngProgress.done();
+        this.subscription = this.hostService.getHosts().subscribe(hosts => {
+              this.hosts = hosts;
+              this.ngProgress.done();
             },
             error => {this.ngProgress.done();
           if ( error.status === 401 ) {
@@ -47,22 +47,11 @@ export class HostComponent implements OnInit {
         });
     }
 
-    // refreshHosts(): void {
-    //   this.hostService.getHosts().subscribe(hosts => {
-    //     for (const host of hosts) {
-    //     const hostid: number = hosts.indexOf(host);
-    //         if (!this.hosts[hosts.indexOf(host)].isUp === host.isUp){
-    //           this.hosts[hosts.indexOf(host)].isUp = host.isUp;
-    //           console.log(host.ipAddress);
-    //           console.log(host.isUp);
-    //
-    //         }
-    //       }
-    //     },
-    //     error => {
-    //       if ( error.status === 401 ) {}
-    //     });
-    // }
+    updateHosts(newHost: Host): void {
+      this.hosts.find(host => host.id === newHost.id).isUp = newHost.isUp;
+      this.hosts.find(host => host.id === newHost.id).customName = newHost.customName;
+      this.hosts.find(host => host.id === newHost.id).place = newHost.place;
+    }
 
     delete(host: Host): void {
         this.hostService
@@ -81,20 +70,11 @@ export class HostComponent implements OnInit {
 
     ngOnInit(): void {
         this.getHosts();
-        // this.interval = setInterval(() => {this.refreshHosts();}, 5000);
     }
 
-    onSelect(host: Host): void {
-        this.activeHost = host;
-    }
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+    this.ngProgress.done();
+  }
 
-    loadDetails(host: Host): void {
-        this.showDetails = true;
-        this.selectedHost = host;
-        // this.activeHost = host;
-    }
-
-    edit(showForm: boolean): void {
-      this.showForm = showForm;
-    }
 }
